@@ -1,0 +1,34 @@
+{{!-- This page is for displaying a user's personal bookshelf with add/delete functionality --}}
+<div style="padding-left:16px">
+  <h2>Book Swap</h2>
+  <p>Here books can be added to your bookshelf (Book Swap Database)</p>
+  <form method = "post">
+<!--NEWBOOKSHELF-->
+    <fieldset>
+      <legend>Add Book Here:</legend>
+        <label>Title:
+          <input type ="text" name ="bookTitle">
+        </label><br><br>
+        <label>Author:
+          <input type ="text" name ="bookAuthor">
+        </label><br><br>
+        <label>ISBN:
+          <input type ="text" name ="isbn">
+        </label><br><br>
+        <label>Condition:
+          <select name = "bookCondition">
+                  <option value = "0" selected> Fresh off the press! (New)</option>
+                  <option value = "1" selected> Delicately Read (Like New)</option>
+                  <option value = "2" selected> Dog-Eared (Slightly Worn)</option>
+                  <option value = "3" selected> Highlight Frenzy (Marks & Highlight Present)</option>
+                  <option value = "4" selected> Loved to Pieces (Rips, Water-Damage, Weak Bindings Present)</option>
+          </select><br><br>
+          <label>Points for Swap (How many points would you like to recieve for a completed Swap?):
+            <input type ="text" name ="pointsRequested">
+          </label><br><br>
+        <input name ="newBookShelfClick" id="nbsClick" value="Submit" type="Submit"/>
+          <div id="nbsTy"></div>
+    </fieldset>
+
+</form>
+</div>

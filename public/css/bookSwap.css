@@ -1,0 +1,103 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .nav {
+    overflow: hidden;
+    background-color: rgb(36, 74, 155);
+  }
+
+  .nav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+  .nav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .nav a.active {
+
+    background-color: #333;
+    color: white;
+  }
+
+  .nav .icon {
+    display: none;
+  }
+
+  img {
+    width:550px;
+    margin: 0 auto;
+}
+
+.warnText {
+  color: red;
+}
+
+.homeContent {
+  width: 1200px;
+  margin: auto;
+  padding: 10px;
+  height: 385px;
+}
+
+.left {
+  width: 50%;
+  float: left;
+  height: 385px;
+
+}
+.right {
+  width: 50%;
+  float: left;
+  height: 385px;
+}
+
+.res {
+  margin: auto;
+  text-align: center;
+}
+#resFrame {
+  width: 1200px;
+  height: 800px;
+}
+
+#results {
+  width: 100%;
+  margin-top: 20px;
+  display:none;
+}
+.fk {
+  color: darkblue;
+}
+
+.pk {
+  color: darkgreen;
+  text-decoration: underline;
+}
+.instr {
+  color:red;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
