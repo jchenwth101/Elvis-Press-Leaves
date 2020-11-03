@@ -11,7 +11,16 @@ var express     = require("express"),
     app.set("view engine", "handlebars");
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(bodyParser.json());
-        
+    
+    // SQL Queries for calling in various app.post routes
+    const newUser = 'INSERT INTO users (`username`, `email`, `password`, `firstName`, `lastName`, `street`, `city`, `state`, `zipCode`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const loginID = 'SELECT id FROM users WHERE username=? and password=?';
+    const newBook = 'INSERT INTO books (`title`, `author`, `isbn`, `condition`) VALUES (?, ?, ?, ?)';
+    const addBookToUser = 'INSERT INTO user_books (`userID`, `bookID`, `points`) VALUES (?, ?, ?)';
+    const getUserBooks = 'SELECT u.userID, u.bookID, tbl1.title, tbl1.author, tbl1.isbn, tbl1.condition FROM user_books u INNER JOIN (SELECT * FROM books b) as tbl1 ON u.bookID = tbl1.id WHERE u.userID = ?';
+    const getShippingAddress = 'SELECT u.firstName, u.lastName, u.street, u.city, u.state, u.zipCode FROM users u WHERE u.id = ?';
+// To be added    const getPendingSwaps;
+    
     // ROOT ROUTE
     app.get("/", function(req, res, next){
         //var context = {}
