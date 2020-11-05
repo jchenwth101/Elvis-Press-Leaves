@@ -7,7 +7,7 @@ body {
   background-color: #000000;
 }
 
-.topnav main { 
+.topnav a { 
   float: left;
   color: white;
   text-align: center;
@@ -16,12 +16,12 @@ body {
   font-size: 17px;
 }
 
-.topnav main:hover { 
+.topnav a:hover { 
   background-color: gray;
   color: black;
 }
 
-.topnav main.active { 
+.topnav a.active { 
   background-color: #ddd;
   color: black;
 }
