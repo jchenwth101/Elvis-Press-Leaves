@@ -1,1 +1,245 @@
 {{!-- This page is for displaying a user's account info --}}
+<div style="padding-left:16px">
+  <h2>Book Swap</h2>
+    <p>View Account Information</p>
+
+      <form method ="GET" action ="/account">
+        <fieldset>
+          <legend>Search for a Sale:</legend>
+            <label>Sale ID:
+              <input type ="search" name ="saleID">
+            </label><br><br>
+            <label>Employee ID (who comlpeted the sale):
+              <input type ="search" name ="employeeID">
+            </label><br><br>
+            <label>Customer ID (who puchased the product):
+              <input type ="search" name ="customerID">
+            </label><br><br>
+            <!--<label>Transaction Date:
+              <input type ="date" name ="transactionDate" disabled>
+            </label><br><br>
+            <label>Purchase Total (including tax):
+              <input type ="search" name ="totalPurchase" disabled>
+            </label><br><br> -->
+          <input name ="salSearch" id="salSearch" value="Search" type="submit"/>
+        </fieldset>
+      </form>
+
+      {{#if sal}}
+      <div style="height: 300px; overflow-y: scroll;">
+        <h3>Sales:</h3>
+          <table>
+            <tr>
+              <!--<th>select</th> -->
+              <th class="pk">saleID</th>
+              <th>employeeID</th>
+              <th>customerID</th>
+              <th>transactionDate</th>
+              <th>totalPurchase</th>
+            </tr>
+            {{#each sal}}
+            <tr>
+              <!--<td><input type="checkbox" name="salCheck{{id}}"></td> -->
+              <td>{{id}}</td>
+              <td>{{eID}}</td>
+              <td>{{cID}}</td>
+              <td>{{tDate}}</td>
+              <td>{{tPurch}}</td>
+            </tr>
+          {{/each}}
+          </table>
+          </div>
+          {{else}}
+            <div class="warnText">No Sales Returned<br><br></div>
+      {{/if}}
+      <br><br>
+      {{#if sal_prod}}
+      <div style="height: 300px; overflow-y: scroll;">
+        <h3>sales_products:</h3>
+          <table>
+            <tr>
+             <!-- <th>select</th> -->
+              <th class="fk">saleID</th>
+              <th class="fk">productID</th>
+              <th> quantity</th>
+            </tr>
+            {{#each sal_prod}}
+            <tr>
+              <!--<td><input type="checkbox" name="sal_prodCheck{{sid}}{{pid}}"></td> -->
+              <td>{{sid}}</td>
+              <td>{{pid}}</td>
+              <td>{{qty}}</td>
+            </tr>
+          {{/each}}
+          </table>
+      </div>
+        {{else}}
+          <div class="warnText">No sales_products Returned<br><br></div>
+      {{/if}}
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <form method ="GET" action ="/userAccount">
+    <fieldset>
+      <legend>My Shipping Information:</legend>
+  			<label>Name:
+          <input type ="text" name ="userName">
+        </label><br><br>
+  			<label>Address:
+          <input type ="text" name ="userAddress">
+        </label><br><br>
+  			<label>:
+          <input type ="text" name ="email">
+          </label><br><br>
+        <label>Address:
+          <input type ="text" name ="">
+          </label><br><br>
+    		<label>:
+          <input type ="text" name ="email">
+          </label><br><br>
+  			<!--<label>Membership Start-Date:
+          <input type ="date" name ="memberSince">
+        </label><br><br> -->
+        <input name ="custSearch" id="custSearch" value="Search" type="submit"/>
+
+    </fieldset>
+  </form>
+
+
+
+
+    <!--EMPLOYEES-->
+        <fieldset>
+          <legend>Add Employee Here:</legend>
+            <label>First Name:
+              <input type ="text" name ="empFirstName">
+            </label><br><br>
+            <label>Last Name:
+              <input type ="text" name ="empLastName">
+            </label><br><br>
+            <label>StoreID:
+              <input type ="number" name ="storeID">
+            </label><br><br>
+            <label>Title:
+              <input type ="text" name ="title">
+            </label><br><br>
+            <label>Shift Start-Time:
+              <input type ="time" name ="startTime">
+            </label><br><br>
+            <label>Shift End-Time:
+              <input type ="time" name ="stopTime">
+            </label><br><br>
+            <label>Hourly Rate:
+              <input type ="number" name ="hourlyRate">
+            </label><br><br>
+            <label>Part-Time?</label>
+              <select name = "partTime">
+                      <option value = "1" selected> Yes</option>
+                      <option value = "0" selected> No</option>
+              </select><br><br>
+              <input name ="empClick" id="empClick" value="Submit" type="Submit"/>
+              <div id="empTy"></div>
+        </fieldset>
+
+    <!--PRODUCTS-->
+        <fieldset>
+          <legend>Add Product Here:</legend>
+            <p>Adding a product will add a product record to the database, and will also add a row to the intersection table
+            "products_sales." The primary key of the product record will be a <strong>foreign key</strong> in the product_sales table.</p>
+            <label>Product Name:
+              <input type ="text" name ="pName">
+            </label><br><br>
+            <label>Price
+              <input type ="price" name ="price">
+            </label><br><br>
+            <input name ="prodClick" id="prodClick" value="Submit" type="Submit"/>
+              <div id="prodTy"></div>
+        </fieldset>
+
+    <!--SALES-->
+        <fieldset>
+          <legend>Add Sale Here:</legend>
+            <p>Adding a sale will add a sale record to the database, and will also add a row to the intersection table
+              "products_sales." The primary key of the sale record will be a <strong>foreign key</strong> in the product_sales table.</p>
+            <label>Employee ID (who comlpeted the sale)
+              <select  name="empID" id="eEmpID">
+                {{#if emps}}
+                  {{#each emps}}
+                    <option value={{id}}>{{id}}: {{fName}} {{lName}}</option>
+                  {{/each}}
+                {{/if}}
+              </select>
+            </label>
+            <strong>This is a dynamically populated list of Employees in the database.</strong><br><br>
+            <label>Customer ID:
+              <select  name="custID" id="sCustomerID">
+                {{#if custs}}
+                  {{#each custs}}
+                    <option value={{id}}>{{id}}: {{fName}} {{lName}}</option>
+                  {{/each}}
+                {{/if}}
+              </select>
+            </label>
+            <strong>This is a dynamically populated list of Customers in the database.</strong><br><br>
+            <label>Transaction Date:
+              <input type ="date" name ="transactionDate">
+            </label><br><br>
+            <label>Purchase Total (including tax):
+              <input type ="price" name ="totalPurchase">
+            </label><br><br>
+            <!--<label>Number of distinct products:
+              <input type ="number" name ="SnumProds" id="numProds" value="1">
+            </label><br><br> -->
+            <input name ="salClick" id="salClick" value="Submit" type="Submit"/>
+                <div id="salTy"></div>
+        </fieldset>
+
+    <!--SALES_PRODUCTS-->
+        <fieldset>
+          <legend>Add Distinct Quantity of Products Sold in a Given Sale:</legend>
+            <p>Input the <strong>number/quantity</strong> of products sold in the corresponding sale.</p>
+              <label>Sale ID (What sale is being refrenced?)
+                <select  name="saleID" id="sSaleID">
+                  {{#if sal}}
+                  {{#each sal}}
+                    <option value={{id}}>{{id}}: {{eID}} {{sID}} {{tDate}} {{tPurch}}</option>
+                      {{/each}}
+                      {{/if}}
+                </select>
+              </label>
+              <strong>This is a dynamically populated list of Sales in the database.</strong><br><br>
+              <label>Product Purchased:
+                <select  name="prodID" id="pProdID">
+                  {{#if prod}}
+                  {{#each prod}}
+                    <option value={{id}}>{{id}}: {{name}} {{price}}</option>
+                      {{/each}}
+                      {{/if}}
+                </select>
+              </label>
+                <strong>This is a dynamically populated list of Products in the database.</strong><br><br>
+                <label>Quantity of Product(s) Purchased in Selected Sale:
+                  <input type ="number" name ="distinctQuantityPurchased">
+                </label><br><br>
+                <input name ="salProdClick" id="salProdClick" value="Submit" type="Submit"/>
+                  <div id="salTyProdTy"></div>
+              </fieldset>
