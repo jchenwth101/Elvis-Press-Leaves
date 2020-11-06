@@ -4,7 +4,7 @@ var express     = require("express"),
     app         = express(),
     bodyParser  = require("body-parser"),
     mysql       = require('./dbcon.js'),
-//    port        = process.env.port || 9230;  // port for OSU flip
+//    port        = process.env.port || 9229;  // port for OSU flip
     port        = process.env.port || 3003;   // port for local
 
 var hbs = require("express-handlebars").create({
@@ -34,8 +34,9 @@ var hbs = require("express-handlebars").create({
 
 
     // SQL Queries for calling in various app.post routes
-    const newUser = 'INSERT INTO users (`username`, `email`, `password`, `firstName`, `lastName`, `street`, `city`, `state`, `zipCode`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    const loginID = 'SELECT id FROM users WHERE username=? and password=?';
+
+    const newUser = 'INSERT INTO users (`username`, `email`, `password`, `firstName`, `lastName`, `street`, `city`, `state`, `zipCode`, `availablePoints`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const loginID = 'SELECT id FROM users WHERE username = ? AND password = ?';
     const newBook = 'INSERT INTO books (`title`, `author`, `isbn`, `condition`) VALUES (?, ?, ?, ?)';
     const addBookToUser = 'INSERT INTO user_books (`userID`, `bookID`, `points`) VALUES (?, ?, ?)';
     const getUserBooks = 'SELECT tbl2.userID, s.username, tbl2.bookID, tbl2.title, tbl2.author, tbl2.isbn, tbl2.condition FROM users s INNER JOIN (SELECT u.userID, u.bookID, tbl1.title, tbl1.author, tbl1.isbn, tbl1.condition FROM user_books u INNER JOIN (SELECT * FROM books b) as tbl1 ON u.bookID = tbl1.id WHERE u.userID = ?) as tbl2 ON s.id = tbl2.userID';
@@ -60,18 +61,56 @@ var hbs = require("express-handlebars").create({
     const searchPoints = 'SELECT tbl2.userID, u.username, tbl2.bookID, tbl2.title, tbl2.author, tbl2.isbn, tbl2.condition, tbl2.points FROM users u INNER JOIN (SELECT ub1.userID, ub1.bookID, tbl1.title, tbl1.author, tbl1.isbn, tbl1.condition, ub1.points FROM user_books ub1 INNER JOIN (SELECT * FROM `books`) as tbl1 ON ub1.bookID=tbl1.id WHERE ub1.points=?) as tbl2 ON u.id=tbl2.userID';
     const searchAll = 'SELECT tbl2.userID, u.username, tbl2.bookID, tbl2.title, tbl2.author, tbl2.isbn, tbl2.condition, tbl2.points FROM users u INNER JOIN (SELECT ub1.userID, ub1.bookID, tbl1.title, tbl1.author, tbl1.isbn, tbl1.condition, ub1.points FROM user_books ub1 INNER JOIN (SELECT * FROM `books` WHERE title=? OR author=?) as tbl1 ON ub1.bookID=tbl1.id) as tbl2 ON u.id=tbl2.userID';
 
-// ROOT ROUTE
+    // ROOT ROUTE
     app.get("/", function(req, res, next){
-        //var context = {}
-        console.log("loaded home");
         res.render('home');
+    });  
+
+    // REGISTRATION ROUTE
+    app.get("/signup", function(req, res, next){
+        res.render('signup');
+    });  
+
+    // LOGIN ROUTE FOR DB
+    app.post("/login", function(req, res, next) {
+        let contents = {};
+        // retrieve user info for login
+        mysql.pool.query(loginID, [req.body.username, req.body.password], (err, result) => {
+            if (err) {
+                console.log('error: ', err);
+            } else {
+                    contents.userInfo = result;
+                    console.log(result);
+                    res.send(contents);    
+            }
+        });
+    });
+
+    // SIGN UP ROUTE FOR DB
+    app.post("/createUser", function(req, res, next) {
+        let contents = {};
+        // retrieve user info for login
+        mysql.pool.query(newUser, [req.body.username, req.body.email, req.body.password, req.body.firstName, req.body.lastName, req.body.street, req.body.city, req.body.state, req.body.zipCode, 15], (err, result) => {
+            if (err) {
+                console.log('error: ', err);
+            } else {
+                mysql.pool.query(loginID, [req.body.username, req.body.password], (err, result) => {
+                    if (err) {
+                        console.log('error: ', err);
+                    } else {
+                            contents.userInfo = result;
+                            console.log(result);
+                            res.send(contents);    
+                    }
+                });
+            }
+        });
     });
 
     // USER'S ACCOUNT ROUTE
     app.get("/:userID/account", function(req, res, next) {
         let contents = {};
         contents.userID = req.params.userID;
-
         res.render('useraccount', contents);
     });
 
@@ -82,14 +121,17 @@ var hbs = require("express-handlebars").create({
 
         res.render('usershelf', contents);
     });
-
+    
+        res.render('usershelf', contents);
+    });
+    
     // PUBLIC VIEW OF A USER'S SHELF
     app.get("/:userID/viewshelf", function(req, res, next) {
         let contents = {};
         contents.userID = req.params.userID;
-
+    
         res.render('viewshelf', contents);
-    });
+    });    
 
     // USER'S SEARCH ROUTE
     app.get("/:userID/browse", function(req, res, next) {
@@ -103,13 +145,16 @@ var hbs = require("express-handlebars").create({
             } else {
                     contents.userInfo = result;
                     console.log(result);
-                    res.render('browse', contents);
+              
+                    res.render('browse', contents);    
+
             }
             });
     });
 
-    // GET ROUTE FOR DB SEARCH
-    app.get("/search", function(req, res, next) {
+    // POST ROUTE FOR DB SEARCH TO RETURN SEARCH RESULTS
+    app.post("/search", function(req, res, next) {
+
         // retrieve books based on search criteria
         // for a return of all books
         if (req.body.criteria == NULL) {
@@ -119,9 +164,10 @@ var hbs = require("express-handlebars").create({
                 } else {
                         contents.searchResults = result;
                         console.log(result);
-                        res.send(contents);
+
+                        res.send(contents);    
                 }
-            });
+            });    
         // for a search in all books (title and author)
         } else {
             if (req.body.type == "all") {
@@ -131,9 +177,10 @@ var hbs = require("express-handlebars").create({
                     } else {
                             contents.searchResults = result;
                             console.log(result);
-                            res.send(contents);
+                            res.send(contents);    
                     }
-                });
+                });        
+
             // for a search in title
             } else if (req.body.type == "title") {
                 mysql.pool.query(searchTitle, req.body.criteria, (err, result) => {
@@ -142,9 +189,10 @@ var hbs = require("express-handlebars").create({
                     } else {
                             contents.searchResults = result;
                             console.log(result);
-                            res.send(contents);
+                            res.send(contents);    
                     }
-                });
+                });        
+
             // for a search in author
             } else if (req.body.type == "author") {
                 mysql.pool.query(searchAuthor, req.body.criteria, (err, result) => {
@@ -153,9 +201,9 @@ var hbs = require("express-handlebars").create({
                     } else {
                             contents.searchResults = result;
                             console.log(result);
-                            res.send(contents);
+                            res.send(contents);    
                     }
-                });
+                });        
             // for a search in points
             } else {
                 mysql.pool.query(searchPoints, req.body.criteria, (err, result) => {
@@ -164,13 +212,13 @@ var hbs = require("express-handlebars").create({
                     } else {
                             contents.searchResults = result;
                             console.log(result);
-                            res.send(contents);
+                            res.send(contents);    
                     }
-                });
+                });        
             }
         }
     });
-
+    
     // USER'S PENDING SWAP REQUEST PAGE
     app.get("/:userID/swaps", function(req, res, next) {
         let contents = {};
@@ -182,7 +230,8 @@ var hbs = require("express-handlebars").create({
                 } else {
                         contents.swaps = result;
                         console.log(result);
-                        res.render('pendingswaps', contents);
+
+                        res.render('pendingswaps', contents);    
                 }
             }
         );
@@ -201,7 +250,8 @@ var hbs = require("express-handlebars").create({
             } else {
                     contents.swaps = result;
                     console.log(result);
-                    res.render('accept', contents);
+                    res.render('accept', contents);    
+
                 }
             }
         );
@@ -222,20 +272,20 @@ var hbs = require("express-handlebars").create({
                     if (err) {
                         console.log('error: ', err);
                         res.send(err);
-                    } else {
+                    } else {        
                         mysql.pool.query(delUserBook, [req.body.senderID, req.body.bookID, req.body.pointsTraded], (err, result) => {
                             if (err) {
                                 console.log('error: ', err);
                                 res.send(err);
-                            } else {
+                            } else {        
                                 mysql.pool.query(getShippingAddress, req.body.receiverID, (err, result) => {
                                     if (err) {
                                         console.log('error: ', err);
                                         res.send(err);
-                                    } else {
+                                    } else {        
                                         contents.shipping = result;
                                         console.log(result);
-                                        res.send(contents);
+                                        res.send(contents);    
                                     }
                                 });
                             }
@@ -259,7 +309,8 @@ var hbs = require("express-handlebars").create({
             } else {
                     contents.swaps = result;
                     console.log(result);
-                    res.render('reject', contents);
+                    res.render('reject', contents);    
+
                 }
             }
         );
@@ -280,8 +331,8 @@ var hbs = require("express-handlebars").create({
                     if (err) {
                         console.log('error: ', err);
                         res.send(err);
-                    } else {
-                        res.send(contents);
+                    } else {        
+                        res.send(contents);    
                     }
                 });
             }
