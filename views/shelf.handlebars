@@ -9,18 +9,18 @@
 </div>
 {{/if}}
 
-<div style="padding-left:16px">
-  <h2>Book Swap</h2>
-  <p>Here books can be added to your bookshelf (Book Swap Database)</p>
-  <form method = "post">
+<h2>Welcome to Your Bookshelf</h2>
+
+<p>Here you can add books to your bookshelf</p>
+  <form method = "post" action ="/shelf">
 <!--NEWBOOKSHELF-->
     <fieldset>
       <legend>Add Book Here:</legend>
-        <label>Title:
-          <input type ="text" name ="bookTitle">
+        <label>Book Title:
+          <input type ="text" name ="title">
         </label><br><br>
         <label>Author:
-          <input type ="text" name ="bookAuthor">
+          <input type ="text" name ="author">
         </label><br><br>
         //<label>ISBN:
           <input type ="text" name ="isbn">
@@ -33,28 +33,31 @@
                   <option value = "4" selected> Highlight Frenzy (Marks & Highlight Present)</option>
                   <option value = "5" selected> Loved to Pieces (Rips, Water-Damage, Weak Bindings Present)</option>
           </select><br><br>
-          <label>Points for Swap (How many points would you like to recieve for a completed Swap?):
-            <input type ="text" name ="pointsRequested">
-          </label><br><br>
+        </label><br><br>
         <input name ="newBookShelfClick" id="nbsClick" value="Submit" type="Submit"/>
-          <div id="nbsTy"></div>
     </fieldset>
     <h2>Book Swap</h2>
       <p>Search</p>
 
-    <form method ="GET" action ="/myBooks">
+    <form method ="GET" action ="/shelf">
       <fieldset>
-        <legend>Manage My Bookshelf:</legend>
+        <legend>Manage Your Bookshelf:</legend>
     			<label>Book Title:
-            <input type ="text" name ="bookTitle">
+            <input type ="text" name ="title">
           </label><br><br>
     			<label>Book Author:
-            <input type ="text" name ="bookAuthor">
+            <input type ="text" name ="author">
           </label><br><br>
-    			<label>E-mail Address:
-            <input type ="text" name ="email">
-            </label><br><br>
-          <input name ="custSearch" id="custSearch" value="Search" type="submit"/>
+          <label>Condition:
+            <select name = "bookCondition">
+                    <option value = "1" selected> Fresh off the press! (New)</option>
+                    <option value = "2" selected> Delicately Read (Like New)</option>
+                    <option value = "3" selected> Dog-Eared (Slightly Worn)</option>
+                    <option value = "4" selected> Highlight Frenzy (Marks & Highlight Present)</option>
+                    <option value = "5" selected> Loved to Pieces (Rips, Water-Damage, Weak Bindings Present)</option>
+            </select><br><br>
+          </label><br><br>
+        <input name ="custSearch" id="custSearch" value="Search" type="submit"/>
 
       </fieldset>
     </form>

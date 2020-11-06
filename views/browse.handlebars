@@ -25,9 +25,15 @@
           <input type ="search" name ="isbn">
         </label><br><br>
         <label>Condition:
-          <input type ="search" name ="isbn">
+            <select name = "bookCondition">
+                    <option value = "1" selected> Fresh off the press! (New)</option>
+                    <option value = "2" selected> Delicately Read (Like New)</option>
+                    <option value = "3" selected> Dog-Eared (Slightly Worn)</option>
+                    <option value = "4" selected> Highlight Frenzy (Marks & Highlight Present)</option>
+                    <option value = "5" selected> Loved to Pieces (Rips, Water-Damage, Weak Bindings Present)</option>
+            </select><br><br>
         </label><br><br>
-      <input name ="browseBooks" id="brsBks" value="Search" type="submit"/>
+      <input name ="browseBooksClick" id="brsBks" value="Search" type="submit"/>
     </fieldset>
   </form>
 
@@ -39,14 +45,17 @@
           <th>Author</th>
           <th>ISBN</th>
           <th>Condition</th>
+          <th>Swapee</th>
+          <td><a href="/{{this.senderID}}/request/{{this.id}}">SWAP!</a></td>
+          <td><a href="/{{this.senderID}}/cancel/{{this.id}}">Cancel</a></td>
         </tr>
-      {{#each sal}}
+      {{#each book}}
         <tr>
           <td>{{title}}</td>
           <td>{{author}}</td>
           <td>{{isbn}}</td>
           <td>{{condition}}</td>
-          <td>{{poster}}</td>
+          <td>{{swapee}}</td>
         </tr>
       {{/each}}
       </table>
@@ -56,4 +65,4 @@
   {{/if}}
   <br><br>
 
-<footer>©Elvis Press Leaves</footer>
+<footer>© Elvis Press Leaves</footer>
