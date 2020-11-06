@@ -1,11 +1,98 @@
+{{!-- This page is for displaying a user's account info --}}
 {{#if userID}}
 <div class="topnav">
-  <a class="active" href="/{{this.userID}}/account">Account</a>
+  <img class="logo" src="logo.png">
+  <a href="/{{this.userID}}/account">Account</a>
   <a href="/{{this.userID}}/shelf">Bookshelf</a>
-  <a href="/{{this.userID}}/swaps">Search/Browse</a>
   <a href="/{{this.userID}}/swaps">Pending Swaps</a>
+  <a href="/{{this.userID}}/browse">Browse</a>
   <a href="/">Logout</a>
 </div>
 {{/if}}
 
-<h1>THIS IS A USER ACCOUNT PAGE - UNDER CONSTRUCTION</h1>
+<h2>Welcome to Your User Account Page</h2>
+
+<p>View Your Account Information:</p>
+
+<div id="userAcctInfo"
+    <table>
+      <thread>
+        <tr>
+          <th>Username</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Street Address</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Zip Code</th>
+          <th>Completed Swaps</th>
+          <th>Pending Swaps</th>
+          <th>Swap Points</th>
+        </tr>
+      </thread>
+      <tbody>
+        {{#each user}}
+          <tr>
+            <td><input type="button" name="update" value="Update" onClick="upAcct({{id}});"></td>
+            <td>{{username}}</td>
+            <td>{{fname}}</td>
+            <td>{{lname}}</td>
+            <td>{{street}}</td>
+            <td>{{city}}</td>
+            <td>{{state}}</td>
+            <td>{{zip}}</td>
+            <td>{{complSwap}}</td>
+            <td>{{pendSwap}}</td>
+            <td>{{swaPPoints}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+    {{else}}
+        <div class="warnText">No User Account Information Available<br><br>
+        </div>
+  </div>
+
+<p>Update Your Account Information Here:</p>
+
+<form method = "post">
+    {{#if usr}}
+        {{#each usr}}
+
+              <fieldset>
+                  <legend>Update Selected Account Information:</legend>
+                  <label hidden>Username:
+                      <input type ="text" name ="usrnm" value="{{username}}">
+                  </label>
+                  <label>First Name:
+                      <input type ="text" name ="firstName" value="{{fName}}">
+                  </label><br><br>
+                  <label>Last Name:
+                      <input type ="text" name ="lastName" value="{{lName}}">
+                  </label><br><br>
+                  <label>Street Address:
+                      <input type ="text" name ="steet" value="{{street}}">
+                  </label><br><br>
+                  <label>City:
+                      <input type ="text" name ="city" value="{{city}}">
+                  </label><br><br>
+                  <label>State:
+                      <input type ="time" name ="state" value="{{state}}">
+                  </label><br><br>
+                  <label>Zip Code:
+                      <input type ="time" name ="zipCode" value="{{zip}}">
+                  </label><br><br>
+
+                  <p><input type="Submit" name="accountUpdate" id="accountUpdate" value="Update Account"></p>
+              </fieldset>
+          {{/each}}
+      {{/if}}
+ </form>
+</div>
+
+
+
+
+</div>
+<footer>© Elvis Press Leaves</footer>
