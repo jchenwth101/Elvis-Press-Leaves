@@ -47,8 +47,7 @@
           <th>ISBN</th>
           <th>Condition</th>
           <th>Swapee</th>
-          <td><a href="/{{this.senderID}}/request/{{this.id}}">SWAP!</a></td>
-          <td><a href="/{{this.senderID}}/cancel/{{this.id}}">Cancel</a></td>
+          <th>Swap</th>
         </tr>
       {{#each book}}
         <tr>
@@ -57,6 +56,7 @@
           <td>{{isbn}}</td>
           <td>{{condition}}</td>
           <td>{{swapee}}</td>
+          <td><a href="/{{this.senderID}}/request/{{this.id}}">SWAP!</a></td>
         </tr>
       {{/each}}
       </table>
