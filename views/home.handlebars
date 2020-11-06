@@ -1,12 +1,36 @@
-{{!-- This page is the homepage for the website --}}
-<div class="topnav">
-  <main class="active" href="#home">Home</main>
-  <main href="usershelf">Bookshelf</main>
-  <main href="#useraccount">Account</main>
+<h1 id="welcome">Welcome to Book Swap</h1>
+
+<p>Build a bookshelf of books to trade to other users in exchange for points that you can use to get more books!</p>
+<p>The only cost is shipping when you're sending a book.</p>
+<p>It's completely up to you whether you keep the book you receive or if you put it up for trading after you're done.
+   Every user gets a few points to get them started and then you get more when you've successfully traded a book.
+</p>
+
+<form id="returningUser">
+  <fieldset>
+    <legend>Complete the below fields to login to an existing account</legend>
+    <br>
+    <label for="accountname"> Username:
+        <input id="username" name="name" type="text" placeholder="Enter Username" required>
+    </label>
+    <br>
+    <label for="pw"> Password:
+        <input id="password" name="pw" type="password" placeholder="Enter Password" required>
+    </label>
+    <br>
+    <br>
+    <input id="userLogin" type="submit" name="login" value="Click Here to Login!">
+    <br>
+    <p>Or <a href="/signup">click here</a> to create a new account!</p>
+  </fieldset>
+</form>
+
+<div id="noUser">
+    <h2>No account found.  Double check your password and try again.</h2>
 </div>
 
-<!-- How do we embed information into a topnav? Points? -->
+<div id="loginError">
+    <h2>Oops!  Something went wrong.  Try again.</h2>
+</div>
 
-
-<h1>Book Swap Test Page</h1>
-<p>If you can see this, your local node.js installation is working!</p>
+<script src="/login.js"></script>
