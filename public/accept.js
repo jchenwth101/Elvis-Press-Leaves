@@ -12,6 +12,7 @@ var dateFormat = year + "-" + month + "-" + day
 
 function hidePrompt() {
     var prompt = document.getElementById('acceptPrompt');
+
     prompt.style.display = "none";
 }
 
