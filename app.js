@@ -34,7 +34,7 @@ var hbs = require("express-handlebars").create({
 
 
     // SQL Queries for calling in various app.post routes
-    const newUser = 'INSERT INTO users (`username`, `email`, `password`, `firstName`, `lastName`, `street`, `city`, `state`, `zipCode`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const newUser = 'INSERT INTO users (`username`, `email`, `password`, `firstName`, `lastName`, `street`, `city`, `state`, `zipCode`, `availablePoints`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const loginID = 'SELECT id FROM users WHERE username = ? AND password = ?';
     const newBook = 'INSERT INTO books (`title`, `author`, `isbn`, `condition`) VALUES (?, ?, ?, ?)';
     const addBookToUser = 'INSERT INTO user_books (`userID`, `bookID`, `points`) VALUES (?, ?, ?)';
@@ -82,9 +82,29 @@ var hbs = require("express-handlebars").create({
                     console.log(result);
                     res.send(contents);    
             }
-        }
-    );
-});
+        });
+    });
+
+    // SIGN UP ROUTE FOR DB
+    app.post("/createUser", function(req, res, next) {
+        let contents = {};
+        // retrieve user info for login
+        mysql.pool.query(newUser, [req.body.username, req.body.email, req.body.password, req.body.firstName, req.body.lastName, req.body.street, req.body.city, req.body.state, req.body.zipCode, 15], (err, result) => {
+            if (err) {
+                console.log('error: ', err);
+            } else {
+                mysql.pool.query(loginID, [req.body.username, req.body.password], (err, result) => {
+                    if (err) {
+                        console.log('error: ', err);
+                    } else {
+                            contents.userInfo = result;
+                            console.log(result);
+                            res.send(contents);    
+                    }
+                });
+            }
+        });
+    });
     
     // USER'S ACCOUNT ROUTE
     app.get("/:userID/account", function(req, res, next) {
