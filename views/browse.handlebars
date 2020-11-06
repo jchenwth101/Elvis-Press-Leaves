@@ -2,10 +2,67 @@
 <div class="topnav">
   <a href="/{{this.userID}}/account">Account</a>
   <a href="/{{this.userID}}/shelf">Bookshelf</a>
-  <a class="active" href="/{{this.userID}}/swaps">Search/Browse</a>
   <a href="/{{this.userID}}/swaps">Pending Swaps</a>
+  <a class="active" href="/{{this.userID}}/browse">Browse</a>
   <a href="/">Logout</a>
 </div>
 {{/if}}
 
-<h1>THIS IS SEARCH PAGE - UNDER CONSTRUCTION</h1>
+<h2>Browse our Database of Millions of Swap-Ready Books, Worldwide!</h2>
+
+<p>Search for a book using any or all of the fields below.</p>
+
+  <form method ="GET" action ="/browse">
+    <fieldset>
+      <legend>Search for...</legend>
+        <label>Book Title:
+          <input type ="search" name ="title">
+        </label><br><br>
+        <label>Author:
+          <input type ="search" name ="author">
+        </label><br><br>
+        <label>ISBN:
+          <input type ="search" name ="isbn">
+        </label><br><br>
+        <label>Condition:
+            <select name = "bookCondition">
+                    <option value = "1" selected> Fresh off the press! (New)</option>
+                    <option value = "2" selected> Delicately Read (Like New)</option>
+                    <option value = "3" selected> Dog-Eared (Slightly Worn)</option>
+                    <option value = "4" selected> Highlight Frenzy (Marks & Highlight Present)</option>
+                    <option value = "5" selected> Loved to Pieces (Rips, Water-Damage, Weak Bindings Present)</option>
+            </select><br><br>
+        </label><br><br>
+      <input name ="browseBooksClick" id="brsBks" value="Search" type="submit"/>
+    </fieldset>
+  </form>
+
+  {{#if booksFound}}
+    <h3>Swap Ready Books! -- </h3>
+      <table>
+        <tr>
+          <th>Book Title</th>
+          <th>Author</th>
+          <th>ISBN</th>
+          <th>Condition</th>
+          <th>Swapee</th>
+          <td><a href="/{{this.senderID}}/request/{{this.id}}">SWAP!</a></td>
+          <td><a href="/{{this.senderID}}/cancel/{{this.id}}">Cancel</a></td>
+        </tr>
+      {{#each book}}
+        <tr>
+          <td>{{title}}</td>
+          <td>{{author}}</td>
+          <td>{{isbn}}</td>
+          <td>{{condition}}</td>
+          <td>{{swapee}}</td>
+        </tr>
+      {{/each}}
+      </table>
+      </div>
+      {{else}}
+        <div class="warnText">No Books of those Qualities Found :(<br><br></div>
+  {{/if}}
+  <br><br>
+
+<footer>© Elvis Press Leaves</footer>

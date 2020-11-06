@@ -79,7 +79,6 @@ var hbs = require("express-handlebars").create({
                 console.log('error: ', err);
             } else {
                     contents.userInfo = result;
-                    console.log(result);
                     res.send(contents);    
             }
         });
@@ -98,7 +97,6 @@ var hbs = require("express-handlebars").create({
                         console.log('error: ', err);
                     } else {
                             contents.userInfo = result;
-                            console.log(result);
                             res.send(contents);    
                     }
                 });
@@ -111,7 +109,7 @@ var hbs = require("express-handlebars").create({
         let contents = {};
         contents.userID = req.params.userID;
     
-        res.render('useraccount', contents);
+        res.render('account', contents);
     });
 
     // USER'S PERSONAL BOOKSHELF ROUTE
@@ -119,13 +117,14 @@ var hbs = require("express-handlebars").create({
         let contents = {};
         contents.userID = req.params.userID;
     
-        res.render('usershelf', contents);
+        res.render('shelf', contents);
     });
     
     // PUBLIC VIEW OF A USER'S SHELF
-    app.get("/:userID/viewshelf", function(req, res, next) {
+    app.get("/:userID/viewshelf/:viewID", function(req, res, next) {
         let contents = {};
         contents.userID = req.params.userID;
+        contents.viewID = req.params.viewID;
     
         res.render('viewshelf', contents);
     });    
@@ -141,7 +140,6 @@ var hbs = require("express-handlebars").create({
                 console.log('error: ', err);
             } else {
                     contents.userInfo = result;
-                    console.log(result);
                     res.render('browse', contents);    
             }
             });
@@ -220,7 +218,6 @@ var hbs = require("express-handlebars").create({
                     console.log('error: ', err);
                 } else {
                         contents.swaps = result;
-                        console.log(result);
                         res.render('pendingswaps', contents);    
                 }
             }
@@ -239,7 +236,6 @@ var hbs = require("express-handlebars").create({
                 console.log('error: ', err);
             } else {
                     contents.swaps = result;
-                    console.log(result);
                     res.render('accept', contents);    
                 }
             }
@@ -273,7 +269,6 @@ var hbs = require("express-handlebars").create({
                                         res.send(err);
                                     } else {        
                                         contents.shipping = result;
-                                        console.log(result);
                                         res.send(contents);    
                                     }
                                 });
@@ -297,7 +292,6 @@ var hbs = require("express-handlebars").create({
                 console.log('error: ', err);
             } else {
                     contents.swaps = result;
-                    console.log(result);
                     res.render('reject', contents);    
                 }
             }
