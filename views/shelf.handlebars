@@ -1,4 +1,14 @@
 {{!-- This page is for displaying a user's personal bookshelf with add/delete functionality --}}
+{{#if userID}}
+<div class="topnav">
+  <a href="/{{this.userID}}/account">Account</a>
+  <a href="/{{this.userID}}/shelf">Bookshelf</a>
+  <a href="/{{this.userID}}/swaps">Pending Swaps</a>
+  <a href="/{{this.userID}}/browse">Browse</a>
+  <a href="/">Logout</a>
+</div>
+{{/if}}
+
 <div style="padding-left:16px">
   <h2>Book Swap</h2>
   <p>Here books can be added to your bookshelf (Book Swap Database)</p>
@@ -44,9 +54,6 @@
     			<label>E-mail Address:
             <input type ="text" name ="email">
             </label><br><br>
-    			<!--<label>Membership Start-Date:
-            <input type ="date" name ="memberSince">
-          </label><br><br> -->
           <input name ="custSearch" id="custSearch" value="Search" type="submit"/>
 
       </fieldset>
@@ -135,7 +142,7 @@
       {{/if}}
 
     </div>
-        <footer>©BOOK SWAPZ</footer>
   </div>
 </form>
 </div>
+<footer>© Elvis Press Leaves</footer>

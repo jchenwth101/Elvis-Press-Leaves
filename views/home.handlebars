@@ -1,4 +1,14 @@
 {{!-- This page is the homepage for the website --}}
+{{#if userID}}
+<div class="topnav">
+  <a href="/{{this.userID}}/account">Account</a>
+  <a href="/{{this.userID}}/shelf">Bookshelf</a>
+  <a href="/{{this.userID}}/swaps">Pending Swaps</a>
+  <a href="/{{this.userID}}/browse">Browse</a>
+  <a href="/">Logout</a>
+</div>
+{{/if}}
+
 <div class="homeContent">
   <div class="left">
     <img src="img/littleLibrary.jpg" alt="Licensed for reuse under Creative Commons Licence"/>
