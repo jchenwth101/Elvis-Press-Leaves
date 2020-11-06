@@ -108,8 +108,16 @@ var hbs = require("express-handlebars").create({
     app.get("/:userID/account", function(req, res, next) {
         let contents = {};
         contents.userID = req.params.userID;
-    
-        res.render('account', contents);
+
+        mysql.pool.query('SELECT * FROM users WHERE id=?', req.params.userID, (err, result) => {
+            if (err) {
+                console.log('error: ', err);
+            } else {
+                    contents.userInfo = result;
+                    console.log(result);
+                    res.render('account', contents);
+            }
+        });    
     });
 
     // USER'S PERSONAL BOOKSHELF ROUTE

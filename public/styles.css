@@ -32,6 +32,11 @@ img {
   margin: 0 auto;
 }
 
+img.home {
+  width:550px;
+  margin-left: 30%;
+}
+
 .warnText {
 color: red;
 }
@@ -101,9 +106,16 @@ background-color: #dddddd;
 }
 
 footer {
-position: fixed;
 left: 45%;
 bottom: 0;
 color: darkgreen;
 text-align: center;
+}
+
+.home {
+text-align: center;
+}
+
+#returningUser {
+  padding-bottom: 2%;
 }
