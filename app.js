@@ -122,9 +122,6 @@ var hbs = require("express-handlebars").create({
         res.render('usershelf', contents);
     });
     
-        res.render('usershelf', contents);
-    });
-    
     // PUBLIC VIEW OF A USER'S SHELF
     app.get("/:userID/viewshelf", function(req, res, next) {
         let contents = {};
