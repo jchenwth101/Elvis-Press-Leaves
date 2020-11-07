@@ -1,7 +1,7 @@
 {{!-- This page is for displaying a user's account info --}}
 {{#if userID}}
 <div class="topnav">
-  <img class="logo" src="logo.png">
+  <img class="logo" src="img/logo.png">
   <a class="active" href="/{{this.userID}}/account">Account</a>
   <a href="/{{this.userID}}/shelf">Bookshelf</a>
   <a href="/{{this.userID}}/swaps">Pending Swaps</a>
@@ -27,9 +27,9 @@
           <th>Zip Code</th>
           <th>Available Points</th>
           <th>Pending Points</th>
-{{!--           <th>Completed Swaps</th>
+{{!--     <th>Completed Swaps</th>
           <th>Pending Swaps</th>
- --}}        </tr>
+ --}}   </tr>
       </thead>
       <tbody>
         {{#if userInfo}}
@@ -62,7 +62,6 @@
 <form method = "post">
     {{#if userInfo}}
         {{#each userInfo}}
-        
               <fieldset>
                   <legend>Update Selected Account Information:</legend>
                   <label hidden>Username:
