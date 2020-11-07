@@ -4,6 +4,7 @@
     height: 80px; /* change it to desired width */
     background-color: black; /* change to desired color */
 }
+
 .logo {
     display: inline-block;
     vertical-align: top;
@@ -12,6 +13,7 @@
     margin-right: 20px;
     margin-top: 15px;    /* if you want it vertically middle of the navbar. */
 }
+
 .navigation-bar > a {
     display: inline-block;
     vertical-align: top;
@@ -20,11 +22,11 @@
     line-height: 80px;    /* if you want it vertically middle of the navbar */
 }
 
-
 body
 {
 	font: 14px sans-serif;
 }
+
 .wrapper
 {
 	width: 350px; padding: 20px;

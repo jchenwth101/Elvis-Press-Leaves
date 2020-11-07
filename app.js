@@ -221,7 +221,24 @@ var hbs = require("express-handlebars").create({
             });        
         }
     });
-    
+
+    // ROUTE FOR USER'S COMPLETED SWAPS
+    app.get("/:userID/history", function(req, res, next) {
+        let contents = {};
+        contents.userID = req.params.userID;
+
+//       NEED TO FIX GETCOMPSWAPS QUERY
+//        mysql.pool.query(getCompSwaps, req.params.userID, (err, result) => {
+//            if (err) {
+//                console.log('error: ', err);
+//            } else {
+//                    contents.swaps = result;
+//                    console.log(result);
+                    res.render('swaphistory', contents);
+//            }
+//        });    
+    });
+
     // USER'S PENDING SWAP REQUEST PAGE
     app.get("/:userID/swaps", function(req, res, next) {
         let contents = {};
