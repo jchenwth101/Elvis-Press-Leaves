@@ -1,34 +1,6 @@
-{{!-- This page is the homepage for the website --}}
-{{#if userID}}
-<div class="topnav">
-  <img class="logo" src="logo.png">
-  <a href="/{{this.userID}}/account">Account</a>
-  <a href="/{{this.userID}}/shelf">Bookshelf</a>
-  <a href="/{{this.userID}}/swaps">Pending Swaps</a>
-  <a href="/{{this.userID}}/browse">Browse</a>
-  <a href="/">Logout</a>
-</div>
-{{/if}}
+<h1 id="welcome" class="home">Welcome to Page Peddlers</h1>
 
-<div class="homeContent">
-  <div class="left">
-    <img src="img/littleLibrary.jpg" alt="Licensed for reuse under Creative Commons Licence"/>
-  </div>
-    <div class="right">
-    <h2>Our Book Swap Website</h2>
-    <p>This is Elvis Press Leaves' Group Project for CS360</p>
-    <ul>
-      <li>Welcome to 'Book Swap'</li>
-      <li>Search millions of titles and swap with bookies like you, worldwide!/li>
-    </ul>
-    <p>To begin, please <a href="login">Login</a> or <a href="create">Create an Account</a></p>
-  </div>
-</div>
-    </form>
-    </div>
-<footer>© Elvis Press Leaves</footer>
-
-<h1 id="welcome">Welcome to Book Swap</h1>
+<img class="home" src="/littleLibrary.jpg" alt="Licensed for reuse under Creative Commons Licence"/>
 
 <p>Build a bookshelf of books to trade to other users in exchange for points that you can use to get more books!</p>
 <p>The only cost is shipping when you're sending a book.</p>
@@ -62,5 +34,7 @@
 <div id="loginError">
     <h2>Oops!  Something went wrong.  Try again.</h2>
 </div>
+
+<footer>© Elvis Press Leaves</footer>
 
 <script src="/login.js"></script>

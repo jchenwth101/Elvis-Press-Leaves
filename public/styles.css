@@ -1,5 +1,6 @@
-body { 
-  font-family: Arial, Helvetica, sans-serif
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .topnav { 
@@ -24,4 +25,97 @@ body {
 .topnav a.active { 
   background-color: #ddd;
   color: black;
+}
+
+img {
+  width:550px;
+  margin: 0 auto;
+}
+
+img.home {
+  width:550px;
+  margin-left: 30%;
+}
+
+.warnText {
+color: red;
+}
+
+.homeContent {
+width: 1200px;
+margin: auto;
+padding: 10px;
+height: 385px;
+}
+
+.left {
+width: 50%;
+float: left;
+height: 385px;
+
+}
+.right {
+width: 50%;
+float: left;
+height: 385px;
+}
+
+.res {
+margin: auto;
+text-align: center;
+}
+
+#resFrame {
+width: 1200px;
+height: 800px;
+}
+
+#results {
+width: 100%;
+margin-top: 20px;
+display:none;
+}
+
+.fk {
+color: darkblue;
+}
+
+.pk {
+color: darkgreen;
+text-decoration: underline;
+}
+
+.instr {
+color:red;
+}
+
+table {
+font-family: arial, sans-serif;
+border-collapse: collapse;
+width: 100%;
+}
+
+td, th {
+border: 1px solid #dddddd;
+text-align: left;
+padding: 8px;
+}
+
+tr:nth-child(even) {
+background-color: #dddddd;
+}
+
+footer {
+left: 45%;
+bottom: 0;
+color: darkgreen;
+text-align: center;
+}
+
+.home {
+text-align: center;
+}
+
+#returningUser {
+  padding-bottom: 2%;
 }
