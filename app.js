@@ -124,8 +124,16 @@ var hbs = require("express-handlebars").create({
     app.get("/:userID/shelf", function(req, res, next) {
         let contents = {};
         contents.userID = req.params.userID;
-    
-        res.render('shelf', contents);
+
+        mysql.pool.query(getUserBooks, req.params.userID, (err, result) => {
+            if (err) {
+                console.log('error: ', err);
+            } else {
+                    contents.bookList = result;
+                    console.log(result);
+                    res.render('shelf', contents);
+            }
+        });    
     });
     
     // PUBLIC VIEW OF A USER'S SHELF
@@ -148,8 +156,16 @@ var hbs = require("express-handlebars").create({
                 console.log('error: ', err);
             } else {
                     contents.userInfo = result;
-                    res.render('browse', contents);    
-            }
+                    mysql.pool.query(selectAll, (err, result) => {
+                        if (err) {
+                            console.log('error: ', err);
+                        } else {
+                                contents.bookList = result;
+                                console.log(result);
+                                res.render('browse', contents);    
+                        }
+                    });    
+                }
             });
     });
 
@@ -157,8 +173,41 @@ var hbs = require("express-handlebars").create({
     app.post("/search", function(req, res, next) {
         // retrieve books based on search criteria
         // for a return of all books
-        if (req.body.criteria == NULL) {
-            mysql.pool.query(selectAll, (err, result) => {
+        if (req.body.type == "all") {
+            mysql.pool.query(searchAll, [req.body.criteria, req.body.criteria], (err, result) => {
+                if (err) {
+                    console.log('error: ', err);
+                } else {
+                    contents.searchResults = result;
+                    console.log(result);
+                    res.send(contents);    
+                }
+            });        
+        // for a search in title
+         } else if (req.body.type == "title") {
+            mysql.pool.query(searchTitle, req.body.criteria, (err, result) => {
+                if (err) {
+                    console.log('error: ', err);
+                } else {
+                    contents.searchResults = result;
+                    console.log(result);
+                    res.send(contents);    
+                }
+            });        
+        // for a search in author
+        } else if (req.body.type == "author") {
+            mysql.pool.query(searchAuthor, req.body.criteria, (err, result) => {
+                if (err) {
+                    console.log('error: ', err);
+                } else {
+                    contents.searchResults = result;
+                    console.log(result);
+                    res.send(contents);    
+                }
+            });        
+        // for a search in points
+        } else {
+            mysql.pool.query(searchPoints, req.body.criteria, (err, result) => {
                 if (err) {
                     console.log('error: ', err);
                 } else {
@@ -166,53 +215,7 @@ var hbs = require("express-handlebars").create({
                         console.log(result);
                         res.send(contents);    
                 }
-            });    
-        // for a search in all books (title and author)
-        } else {
-            if (req.body.type == "all") {
-                mysql.pool.query(searchAll, [req.body.criteria, req.body.criteria], (err, result) => {
-                    if (err) {
-                        console.log('error: ', err);
-                    } else {
-                            contents.searchResults = result;
-                            console.log(result);
-                            res.send(contents);    
-                    }
-                });        
-            // for a search in title
-            } else if (req.body.type == "title") {
-                mysql.pool.query(searchTitle, req.body.criteria, (err, result) => {
-                    if (err) {
-                        console.log('error: ', err);
-                    } else {
-                            contents.searchResults = result;
-                            console.log(result);
-                            res.send(contents);    
-                    }
-                });        
-            // for a search in author
-            } else if (req.body.type == "author") {
-                mysql.pool.query(searchAuthor, req.body.criteria, (err, result) => {
-                    if (err) {
-                        console.log('error: ', err);
-                    } else {
-                            contents.searchResults = result;
-                            console.log(result);
-                            res.send(contents);    
-                    }
-                });        
-            // for a search in points
-            } else {
-                mysql.pool.query(searchPoints, req.body.criteria, (err, result) => {
-                    if (err) {
-                        console.log('error: ', err);
-                    } else {
-                            contents.searchResults = result;
-                            console.log(result);
-                            res.send(contents);    
-                    }
-                });        
-            }
+            });        
         }
     });
     
