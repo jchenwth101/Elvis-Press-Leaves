@@ -14,21 +14,6 @@ function InitApp() {
    RefreshTable();
 }
 
-/**
-TODO this is temporary and will be removed; just for testing
-*/
-function addBookFromDialog() {
-    let bookName = $("#book_name").val()
-    let bookAuthor = $("#book_author").val()
-    let bookPoints = $("#book_points").val()
-    let bookISBN = $("#book_ISBN").val()
-
-    console.log("book name" , bookName)
-    console.log("book author" , bookAuthor)
-    console.log("book pointers", bookPoints)
-    console.log("book ISBN" , bookISBN)
-}
-
 function ApiGetBooks() {
     return new Promise((resolve, reject) => {
         $.ajax({
