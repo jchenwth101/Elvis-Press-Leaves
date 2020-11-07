@@ -34,6 +34,7 @@ var hbs = require("express-handlebars").create({
 
 
     // SQL Queries for calling in various app.post routes
+
     const newUser = 'INSERT INTO users (`username`, `email`, `password`, `firstName`, `lastName`, `street`, `city`, `state`, `zipCode`, `availablePoints`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const loginID = 'SELECT id FROM users WHERE username = ? AND password = ?';
     const newBook = 'INSERT INTO books (`title`, `author`, `isbn`, `condition`) VALUES (?, ?, ?, ?)';
@@ -103,7 +104,7 @@ var hbs = require("express-handlebars").create({
             }
         });
     });
-    
+
     // USER'S ACCOUNT ROUTE
     app.get("/:userID/account", function(req, res, next) {
         let contents = {};
@@ -149,7 +150,7 @@ var hbs = require("express-handlebars").create({
     app.get("/:userID/browse", function(req, res, next) {
         let contents = {};
         contents.userID = req.params.userID;
-    
+
         // retrieve user info for processing requests
         mysql.pool.query('SELECT `id`, `availablePoints` FROM users WHERE id=?', req.params.userID, (err, result) => {
             if (err) {
@@ -171,6 +172,7 @@ var hbs = require("express-handlebars").create({
 
     // POST ROUTE FOR DB SEARCH TO RETURN SEARCH RESULTS
     app.post("/search", function(req, res, next) {
+
         // retrieve books based on search criteria
         // for a return of all books
         if (req.body.type == "all") {
@@ -213,6 +215,7 @@ var hbs = require("express-handlebars").create({
                 } else {
                         contents.searchResults = result;
                         console.log(result);
+
                         res.send(contents);    
                 }
             });        
@@ -248,6 +251,7 @@ var hbs = require("express-handlebars").create({
             } else {
                     contents.swaps = result;
                     res.render('accept', contents);    
+
                 }
             }
         );
@@ -304,6 +308,7 @@ var hbs = require("express-handlebars").create({
             } else {
                     contents.swaps = result;
                     res.render('reject', contents);    
+
                 }
             }
         );
@@ -344,8 +349,7 @@ var hbs = require("express-handlebars").create({
         res.status(500);
         res.render('500');
     });
-    
+
     app.listen(port, function(){
         console.log(`Express started on http://${process.env.HOSTNAME}:9229; press Ctrl-C to terminate.`);
     });
-    
