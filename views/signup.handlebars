@@ -1,55 +1,25 @@
-<h1 id="welcome">Book Swap Account Registration</h1>
+<div class="top-left-contents">
+			<h1>Book Swap!</h1>
 
-
-<form id="newUser">
-  <fieldset>
-    <legend>Complete the below fields to create your account</legend>
-    <br>
-    <label for="firstname"> Enter your first name:
-        <input id="fname" name="firstname" type="text" placeholder="First Name" required>
-    </label>
-    <br>
-    <label for="lastname"> Enter your last name:
-        <input id="lname" name="lastname" type="text" placeholder="Last Name" required>
-    </label>
-    <br>
-    <label for="emailAdd"> Enter your email:
-        <input id="email" name="email" type="email" placeholder="user@email.com" required>
-    </label>
-    <br>
-    <label for="accountname"> Create a username:
-        <input id="username" name="name" type="text" placeholder="Enter Username" required>
-    </label>
-    <br>
-    <label for="pw"> Create a password:
-        <input id="password" name="pw" type="password" placeholder="Enter Password" required>
-    </label>
-    <br>
-    <label for="streetaddress"> Enter your street:
-        <input id="street" name="streetaddress" type="text" placeholder="Street" required>
-    </label>
-    <br>
-    <label for="cityaddress"> Enter your city:
-        <input id="city" name="cityaddress" type="text" placeholder="City" required>
-    </label>
-    <br>
-    <label for="stateaddress"> Enter your state:
-        <input id="state" name="stateaddress" type="text" placeholder="State" required>
-    </label>
-    <br>
-    <label for="zipaddress"> Enter your zipCode:
-        <input id="zipCode" name="zip" type="text" pattern="[0-9]{5}" placeholder="12345" required>
-    </label>
-    <br>
-    <br>
-    <input id="userLogin" type="submit" name="login" value="Click Here to Register and Login!">
-  </fieldset>
-</form>
-
-<div id="signUpError">
-    <h2>Oops!  Something went wrong.  Try again.</h2>
 </div>
+<img src="flyingBooks.png" alt="flyingBooks" width="500" height="333">
 
-<footer>© Elvis Press Leaves</footer>
-
-<script src="/newuser.js"></script>
+<div class="SignUp-container">
+	<h2>Create Account</h2>
+			<form action="storeAccountInfo" method="POST">
+        <input class= "box" type="text" name="firstName" placeholder="First Name" required>
+        <input class= "box" type="text" name="lastName" placeholder="Last Name" required>
+				<input class= "box" type="text" name="username" placeholder="Username" required>
+				<input class= "box" type="text" name="email" placeholder="Email" required>
+        <input class= "box" type="text" name="address" placeholder="Address" required>
+        <input class= "box" type="text" name="city" placeholder="City" required>
+				<input class= "box" type="text" name="state" placeholder="State" required>
+        <input class= "box" type="text" name="street" placeholder="Street" required>
+        <input class= "box" type="text" name="zipCode" placeholder="Zip Code" required>
+				<input class= "box"type="password" name="password" placeholder="Password" required>
+				<input class= "box3" type="submit">
+			</form>
+			<div class="signup-link">
+				<p>Want to go back to the login page clicking here <a href="welcomePage"> login</a>.</p>
+			</div>
+</div>

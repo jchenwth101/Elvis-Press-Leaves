@@ -1,0 +1,64 @@
+body{
+  background: gray;
+}
+
+h2{
+  text-align: center;
+}
+p{
+  text-align: center;
+}
+
+img{
+  position: relative;
+  bottom: -100px;
+	left:600px;
+
+}
+
+.top-left-contents
+{
+  font-family: Arial, Helvetica, sans-serif;;
+}
+
+.SignUp-container
+{
+  position: relative;
+	bottom: 350px;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+  width: 30%;
+}
+
+.SignUp-container > .-link
+{
+  width: 500px;
+}
+
+.SignUp-container input[type="submit"]
+{
+	color: #ffffff;
+	background-color: black;
+	border: 3;
+	border-radius: 25px;
+	width: 60%;
+	padding: 10px;
+	cursor: pointer;
+	position: relative;
+	left:60px;
+
+
+}
+.SignUp-container .box[type="text"], .box[type="password"]
+{
+	width: 80%;
+	padding: 10px;
+	border-radius: 10px;
+	border: 2px solid #695a5a;
+	margin-bottom: 15px;
+	box-sizing:border-box;
+  text-align: center;
+  position: relative;
+	left:30px;
+}
